@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-const contacts = require("../models/contacts.js");
+// const contacts = require("../models/contacts.js");
 
 const {Contact} = require("../models")
 
@@ -56,7 +56,7 @@ const postCheckingSchema = Joi.object({
         console.log(error.context);
         throw RequestError(400, error.message);
       }
-      const result = await contacts.addContact(req.body);
+      const result = await Contact.create(req.body);
       res.status(201).json(result);
     } catch (error) {
       next(error);
