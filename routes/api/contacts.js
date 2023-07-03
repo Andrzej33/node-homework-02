@@ -3,6 +3,8 @@ const Joi = require("joi");
 
 const contacts = require("../../models/contacts.js");
 
+const {Contact} = require("../../models")
+
 const { RequestError } = require("../../helpers");
 
 const router = express.Router();
@@ -30,7 +32,7 @@ const putCheckingSchema = Joi.object({
 
 router.get("/", async (req, res, next) => {
   try {
-    const result = await contacts.listContacts();
+    const result = await Contact.find();
     res.json(result);
   } catch (error) {
     next(error);
