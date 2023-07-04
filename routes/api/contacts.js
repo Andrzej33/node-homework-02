@@ -1,4 +1,6 @@
 const express = require("express");
+
+const {isValidId} = require("../../middlewares")
 // const Joi = require("joi");
 
 // const contacts = require("../../models/contacts.js");
@@ -15,12 +17,14 @@ const ctrl = require("../../controllers/contacts")
 
 router.get("/",ctrl.getAll );
 
-router.get("/:contactId",ctrl.getById );
+router.get("/:contactId", isValidId,ctrl.getById );
 
 router.post("/",ctrl.add );
 
-router.delete("/:contactId",ctrl.removeById );
+router.delete("/:contactId", isValidId,ctrl.removeById );
 
-router.put("/:contactId",ctrl.update );
+router.put("/:contactId", isValidId,ctrl.update );
+
+router.patch("/:contactId/favorite", isValidId, ctrl.updateFavorite );
 
 module.exports = router;
