@@ -2,11 +2,9 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const contactsRouter = require("./routes/api/contacts");
-
-
 
 const app = express();
 
@@ -16,16 +14,17 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
-const {DB_HOST} = process.env;
+const { DB_HOST } = process.env;
 
-// const DB_HOST="mongodb+srv://Andy:notAllowedAccess@cluster0.5mjlhcp.mongodb.net/db-contacts?retryWrites=true&w=majority"
+mongoose
+  .connect(DB_HOST)
+  .then(() => console.log("Database connection successful"))
+  .catch((err) => {
+    console.log(err.message, DB_HOST);
+    process.exit(1);
+  });
 
-mongoose.connect(DB_HOST).then(()=>console.log("Database connection successful")).catch(err=>{console.log(err.message,DB_HOST);
-  process.exit(1);
-})
-
-
-// app.listen(3001);
+app.listen(3001);
 
 app.use("/api/contacts", contactsRouter);
 
