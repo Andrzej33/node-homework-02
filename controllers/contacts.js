@@ -3,30 +3,11 @@
 // const contacts = require("../models/contacts.js");
 
 const {Contact,schemas} = require("../models");
-// const Contact = require("../models")
+
 
 const { RequestError } = require("../helpers");
 
-// const postCheckingSchema = Joi.object({
-//     name: Joi.string()
-//       .min(3)
-//       .alphanum()
-//       .required()
-//       .error(new Error("missing required name field")),
-//     email: Joi.string()
-//       .email()
-//       .required()
-//       .error(new Error("missing required email field")),
-//     phone: Joi.string()
-//       .required()
-//       .error(new Error("missing required phone field")),
-//   });
-  
-//   const putCheckingSchema = Joi.object({
-//     name: Joi.string().min(3).alphanum(),
-//     email: Joi.string().email(),
-//     phone: Joi.string(),
-//   }).min(1);
+
 
   const getAll = async (req, res, next) => {
     try {
@@ -54,10 +35,11 @@ const { RequestError } = require("../helpers");
 
   const add = async (req, res, next) => {
     try {
-      // console.log(schemas.postCheckingSchema);
+      // console.log(schemas.postCheckingSchema.validate(req.body));
       const { error } =  schemas.postCheckingSchema.validate(req.body);
+      // console.log(schemas.postCheckingSchema);
       if (error) {
-        console.log(error.context);
+        console.log(error,error.context);
         throw RequestError(400, error.message);
       }
       const result = await Contact.create(req.body);

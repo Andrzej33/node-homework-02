@@ -26,7 +26,7 @@ contactSchema.post("save",(error,data,next)=>{
 const postCheckingSchema = Joi.object({
   name: Joi.string()
     .min(3)
-    .alphanum()
+    // .alphanum()
     .required()
     .error(new Error("missing required name field")),
   email: Joi.string()
@@ -42,14 +42,14 @@ const postCheckingSchema = Joi.object({
 });
 
 const putCheckingSchema = Joi.object({
-  name: Joi.string().min(3).alphanum(),
+  name: Joi.string().min(3),
   email: Joi.string().email(),
   phone: Joi.string(),
   favorite:Joi.boolean(),
 }).min(1);
 
 const patchCheckingSchema = Joi.object({
-  favorite:Joi.boolean().required(),
+  favorite: Joi.boolean().required(),
 })
 
 
